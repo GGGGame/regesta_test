@@ -1,49 +1,68 @@
 const express = require("express");
 const router = express.Router();
-const User = require("./model");
+const Article = require("./model");
 
+// GET all items
 router.get("/", async (req, res) => {
   try {
-    const users = await User.findAll();
-    res.send(users);
+    const article = await Article.findAll();
+    res.send(article);
   } catch (error) {
     res.send(error);
     res.sendStatus(400);
   }
 });
 
+// GET single item by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const article = await Article.findAll({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.send(article);
+  } catch (error) {
+    res.send(error);
+    res.sendStatus(400);
+  }
+});
+
+// POST items by body
 router.post("/", async (req, res) => {
   try {
-    await User.create(req.body);
-    res.send("Account insert correclty!");
+    await Article.create(req.body);
+    res.send("Article insert correclty!");
   } catch (error) {
     res.send(error);
     res.sendStatus(400);
   }
 });
 
+// PATCH item by ID
 router.patch("/:id", async (req, res) => {
   try {
-    await User.update(req.body, {
+    await Article.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
-    res.send("Account updated correctly!");
+    res.send("Article updated correctly!");
   } catch (error) {
     res.send(error);
     res.sendStatus(400);
   }
 });
 
+// DELETE Item by id
 router.delete("/:id", async (req, res) => {
   try {
-    await User.destroy({
+    await Article.destroy({
       where: {
         id: req.params.id,
       },
     });
-    res.send("Account removed correctly.");
+    res.send("Article removed correctly.");
   } catch (error) {
     res.send(error);
     res.sendStatus(400);

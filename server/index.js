@@ -1,17 +1,32 @@
-const { Sequelize } = require("sequelize");
+const sequelize = require("./config/database_connection");
+const fs = require("fs");
+const express = require("express");
+require("dotenv").config();
+const userRouter = require("./models/user/routes");
 
-const sequelize = new Sequelize("regesta_test", "root", "root", {
-  host: "localhost",
-  dialect: "mysql",
+//#region database init
+
+// find all module to import database models
+fs.readdirSync(__dirname + "/models").forEach(function (model) {
+  if (fs.existsSync(`${__dirname}/models/${model}/model.js`)) {
+    require(`./models/${model}/model`);
+  }
 });
 
-const runServer = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-  }
-};
+// database migration
+// sequelize.sync({ alter: true });
 
-runServer();
+//#endregion
+
+const app = express();
+const port = process.env.SERVER_PORT || 3050;
+
+app.use("/user", userRouter);
+
+app.get("/", (req, res) => {
+  res.send("Hello world!");
+});
+
+app.listen(port, () => {
+  console.log(`server currently running on port ${port}`);
+});

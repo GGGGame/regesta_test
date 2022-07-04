@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const User = require("./model");
+const Supplier = require("./model");
 
 router.get("/", async (req, res) => {
   try {
-    const users = await User.findAll();
-    res.send(users);
+    const supplier = await Supplier.findAll();
+    res.send(supplier);
   } catch (error) {
     res.send(error);
     res.sendStatus(400);
@@ -14,8 +14,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    await User.create(req.body);
-    res.send("Account insert correclty!");
+    await Supplier.create(req.body);
+    res.send("Supplier insert correclty!");
   } catch (error) {
     res.send(error);
     res.sendStatus(400);
@@ -24,12 +24,12 @@ router.post("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   try {
-    await User.update(req.body, {
+    await Supplier.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
-    res.send("Account updated correctly!");
+    res.send("Supplier updated correctly!");
   } catch (error) {
     res.send(error);
     res.sendStatus(400);
@@ -38,12 +38,12 @@ router.patch("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    await User.destroy({
+    await Supplier.destroy({
       where: {
         id: req.params.id,
       },
     });
-    res.send("Account removed correctly.");
+    res.send("Supplier removed correctly.");
   } catch (error) {
     res.send(error);
     res.sendStatus(400);

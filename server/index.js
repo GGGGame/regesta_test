@@ -2,9 +2,11 @@ const sequelize = require("./config/database_connection");
 const fs = require("fs");
 const express = require("express");
 require("dotenv").config();
-const userRouter = require("./models/user/routes");
-const suppliersRouter = require("./models/supplier/routes");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const articleRouter = require("./models/article/routes");
+const suppliersRouter = require("./models/supplier/routes");
+const supplierRouter = require("./models/supplierItems/routes");
 
 //#region database init
 
@@ -23,14 +25,12 @@ fs.readdirSync(__dirname + "/models").forEach(function (model) {
 const app = express();
 const port = process.env.SERVER_PORT || 3050;
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use("/user", userRouter);
+app.use("/article", articleRouter);
 app.use("/suppliers", suppliersRouter);
-
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
+app.use("/supplieritems", supplierRouter);
 
 app.listen(port, () => {
   console.log(`server currently running on port ${port}`);

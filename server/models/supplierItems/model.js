@@ -10,6 +10,7 @@ const SupplierItems = sequelize.define("SupplierItems", {
       model: Article,
       key: "id",
     },
+    allowNull: false,
   },
   SupplierId: {
     type: DataTypes.INTEGER,
@@ -17,14 +18,23 @@ const SupplierItems = sequelize.define("SupplierItems", {
       model: Supplier,
       key: "id",
     },
-  },
-  SupplierTimeShip: {
-    type: DataTypes.DATE,
     allowNull: false,
   },
-  SupplierTotalAmount: {
+  TimeShip: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+  Stocks: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  DiscountItemsAmount: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  DiscountDate: {
+    type: DataTypes.DATE,
+    allowNull: true,
   },
 });
 

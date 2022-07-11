@@ -18,8 +18,10 @@ export const Suppliers = ({ id, hide, classStyle }) => {
           .filter((suppliers) => suppliers.id === id)
           .map((suppliers, index) => (
             <div key={suppliers.id} className={classStyle}>
-              <p>Name: {suppliers.name}</p>
-              {!hide && <p>Description: {suppliers.description}</p>}
+              <p className="mx-2">Seller: {suppliers.name}</p>
+              {!hide && (
+                <p className="mx-2">Description: {suppliers.description}</p>
+              )}
             </div>
           ))}
     </div>

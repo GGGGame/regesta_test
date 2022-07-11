@@ -1,21 +1,22 @@
-import { FindArticle } from "./components/FindArticle";
 import { Card } from "./components/Card";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSupplierItems } from "./state/supplierItems";
-import { addItem, removeItem } from "./state/cart";
+import { addItem } from "./state/cart";
 import { Navbar } from "./components/Navbar";
 
 export const App = () => {
+  const cartItems = useSelector((state) => state.cartArticles);
   const dispatch = useDispatch();
   const [bodyFilter, setFilter] = useState({});
   const [cartState, alterCart] = useState(false);
-  const cartAmount = useSelector((state) => state.cartAmounts);
 
+  // used everytime there is no filter and for page load
   useEffect(() => {
     dispatch(fetchSupplierItems("http://localhost:3050/supplieritems/details"));
   }, [dispatch]);
 
+  // search item by filter using FindArticle.js
   const searchSupplier = (e) => {
     e.preventDefault();
 
@@ -37,22 +38,18 @@ export const App = () => {
     );
   };
 
+  // add item to cart
   const addToCart = (item) => dispatch(addItem(item));
 
-  const removeToCart = (item) => dispatch(removeItem(item));
   return (
     <div>
       <Navbar
         findSupplier={searchSupplier}
         cartAlter={alterCart}
         cartState={cartState}
-        itemAmount={cartAmount}
+        cartAmount={cartItems.length}
       />
-      <Card
-        filter={bodyFilter}
-        cartAction={addToCart}
-        cartAmount={cartAmount}
-      />
+      <Card filter={bodyFilter} cartAction={addToCart} />
     </div>
   );
 };

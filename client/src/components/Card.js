@@ -3,10 +3,13 @@ import { useSelector } from "react-redux";
 import { Articles } from "./Articles";
 import { Suppliers } from "./Suppliers";
 
-export const Card = ({ filter, cartAction, cartAmount }) => {
+export const Card = ({ filter, cartAction }) => {
   const supplierItems = useSelector((state) => state.fetchSupplierItems[0]);
   const [filteredItems, filterItems] = useState([]);
 
+  // supplierItems receive state from this API: http://localhost:3050/supplieritems/details
+  // that return articles and supplierItems, at this point
+  // everytime current component is rendered, find ArticleId inside supplierItems by current id in articles table
   useEffect(() => {
     let items = [];
     if (supplierItems !== null && supplierItems !== undefined) {
@@ -53,20 +56,19 @@ export const Card = ({ filter, cartAction, cartAmount }) => {
                 <div className="supplier-info">
                   <Suppliers id={suppItems.SupplierId} />
                   <Articles id={suppItems.ArticleId} />
-                  <p>stocks: {suppItems.Stocks}</p>
-                  <p>Shipment time: {suppItems.TimeShip}</p>
-                  <p>
+                  <p className="mx-2">stocks: {suppItems.Stocks}</p>
+                  <p className="mx-2">Shipment time: {suppItems.TimeShip}</p>
+                  <p className="mx-2">
                     Discount date:
                     {new Date(suppItems.DiscountDate).toLocaleDateString()}
                   </p>
                 </div>
-                <div>
+                <div className="w-full flex justify-center">
                   <button
-                    onClick={() =>
-                      cartAction({ ...suppItems, amount: cartAmount })
-                    }
+                    className="bg-slate-400 px-6 py-2 m-2 rounded hover:bg-yellow-400"
+                    onClick={() => cartAction({ ...suppItems, amount: 1 })}
                   >
-                    Buy
+                    Add to cart
                   </button>
                 </div>
               </div>

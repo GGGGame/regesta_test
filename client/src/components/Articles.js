@@ -17,8 +17,8 @@ export const Articles = ({ id, amount = 1, classStyle }) => {
           .filter((articles) => articles.id === id)
           .map((articles, index) => (
             <div key={articles.id} className={classStyle}>
-              <p>Article: {articles.name}</p>
-              <p>Price: {articles.price * amount}€</p>
+              <p className="mx-2">Article: {articles.name}</p>
+              <p className="mx-2">Price: {articles.price * amount}€</p>
             </div>
           ))}
     </div>

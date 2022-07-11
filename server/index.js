@@ -18,7 +18,7 @@ fs.readdirSync(__dirname + "/models").forEach(function (model) {
 });
 
 // database migration
-// sequelize.sync({ alter: true });
+sequelize.sync({ alter: true });
 
 //#endregion
 

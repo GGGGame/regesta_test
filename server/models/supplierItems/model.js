@@ -36,6 +36,10 @@ const SupplierItems = sequelize.define("SupplierItems", {
     type: DataTypes.DATE,
     allowNull: true,
   },
+  DiscountPercentage: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
 });
 
 Article.belongsToMany(Supplier, { through: SupplierItems });

@@ -5,6 +5,7 @@ const Supplier = require("../supplier/model");
 const router = express.Router();
 const SupplierItems = require("./model");
 
+// get every records in table
 router.get("/", async (req, res) => {
   try {
     const supplierItems = await SupplierItems.findAll();
@@ -15,6 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get supplierItems and Article to filter by name
 router.get("/details", async (req, res) => {
   try {
     const article = await Article.findAll();
@@ -26,6 +28,7 @@ router.get("/details", async (req, res) => {
   }
 });
 
+// get result by filter
 router.get("/details/:amount/:shiptime/:date", async (req, res) => {
   try {
     const article = await Article.findAll();
@@ -49,6 +52,7 @@ router.get("/details/:amount/:shiptime/:date", async (req, res) => {
   }
 });
 
+// insert body object in tables
 router.post("/", async (req, res) => {
   try {
     await SupplierItems.create(req.body);
@@ -59,6 +63,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// edit by id
 router.patch("/:id", async (req, res) => {
   try {
     await SupplierItems.update(req.body, {
@@ -73,6 +78,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+// delete by id
 router.delete("/:id", async (req, res) => {
   try {
     await SupplierItems.destroy({

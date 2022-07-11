@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Article = require("./model");
 
-// GET all items
+// get every records in table
 router.get("/", async (req, res) => {
   try {
     const article = await Article.findAll();
@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET single item by ID
+// get single item by id
 router.get("/:id", async (req, res) => {
   try {
     const article = await Article.findAll({
@@ -28,7 +28,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST items by body
+// insert body object in tables
 router.post("/", async (req, res) => {
   try {
     await Article.create(req.body);
@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PATCH item by ID
+// edit by id
 router.patch("/:id", async (req, res) => {
   try {
     await Article.update(req.body, {
@@ -54,7 +54,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-// DELETE Item by id
+// delete by id
 router.delete("/:id", async (req, res) => {
   try {
     await Article.destroy({

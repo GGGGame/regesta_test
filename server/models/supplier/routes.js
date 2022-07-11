@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Supplier = require("./model");
 
+// get every records in table
 router.get("/", async (req, res) => {
   try {
     const supplier = await Supplier.findAll();
@@ -12,6 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// insert body object in tables
 router.post("/", async (req, res) => {
   try {
     await Supplier.create(req.body);
@@ -22,6 +24,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// edit by id
 router.patch("/:id", async (req, res) => {
   try {
     await Supplier.update(req.body, {
@@ -36,6 +39,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+// delete by id
 router.delete("/:id", async (req, res) => {
   try {
     await Supplier.destroy({
